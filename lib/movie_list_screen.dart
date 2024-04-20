@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_firebase/screens/data/models/movie_response.dart';
 
 class MovieListScreen extends StatefulWidget {
   const MovieListScreen({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class MovieListScreen extends StatefulWidget {
 
 class _MovieListScreenState extends State<MovieListScreen> {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  final List<Movie> movieList = [];
+  final List<MovieResponse> movieList = [];
   bool _showForm = false; // New state variable to track form visibility
 
   @override
@@ -24,7 +25,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
       movieList.clear();
       for (QueryDocumentSnapshot doc in value.docs) {
         movieList.add(
-          Movie.fromJson(doc.id, doc.data() as Map<String, dynamic>),
+          MovieResponse.fromJson(doc.id, doc.data() as Map<String, dynamic>),
         );
       }
     });
@@ -57,7 +58,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
             for (QueryDocumentSnapshot doc
             in (snapshot.data?.docs ?? [])) {
               movieList.add(
-                Movie.fromJson(doc.id, doc.data() as Map<String, dynamic>),
+                MovieResponse.fromJson(doc.id, doc.data() as Map<String, dynamic>),
               );
             }
 
@@ -108,6 +109,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
   void _deleteMovie(String movieId) {
     _firebaseFirestore.collection('movies').doc(movieId).delete();
   }
+
   Widget _buildForm() {
     final nameController = TextEditingController();
     final yearController = TextEditingController();
@@ -154,28 +156,6 @@ class _MovieListScreenState extends State<MovieListScreen> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class Movie {
-  final String id, name, languages, year, rating;
-
-  Movie({
-    required this.id,
-    required this.name,
-    required this.languages,
-    required this.rating,
-    required this.year,
-  });
-
-  factory Movie.fromJson(String id, Map<String, dynamic> json) {
-    return Movie(
-      id: id,
-      name: json['name'],
-      languages: json['languages'],
-      rating: json['rating'] ?? 'Unknown',
-      year: json['year'],
     );
   }
 }
