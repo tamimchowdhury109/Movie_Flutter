@@ -13,7 +13,7 @@ class MovieListScreen extends StatefulWidget {
 class _MovieListScreenState extends State<MovieListScreen> {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final List<MovieResponse> movieList = [];
-  bool _showForm = false; // New state variable to track form visibility
+  bool _showForm = false;
 
   @override
   void initState() {
@@ -70,9 +70,9 @@ class _MovieListScreenState extends State<MovieListScreen> {
                     aspectRatio: 16 / 9,
                     enlargeCenterPage: true,
                     autoPlay: true,
-                    autoPlayInterval: Duration(seconds: 5),
+                    autoPlayInterval: const Duration(seconds: 5),
                     autoPlayAnimationDuration:
-                    Duration(milliseconds: 800),
+                    const Duration(milliseconds: 800),
                     pauseAutoPlayOnTouch: true,
                     enableInfiniteScroll: true,
                     viewportFraction: 0.8,
@@ -82,7 +82,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
                     builder: (BuildContext context) {
                       return Container(
                         width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.symmetric(
+                        margin: const EdgeInsets.symmetric(
                             horizontal: 5.0),
                         decoration: BoxDecoration(
                           color: Colors.grey,
@@ -99,7 +99,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
                   ))
                       .toList(),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(10),
@@ -115,7 +115,6 @@ class _MovieListScreenState extends State<MovieListScreen> {
                         String imageUrl = movieList[index].imageUrl ?? '';
                         return GestureDetector(
                           onTap: () {
-                            // Add your onTap logic here
                           },
                           child: Card(
                             elevation: 2,
@@ -228,7 +227,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: _toggleFormVisibility,
-        child: _showForm ? const Icon(Icons.close) : Icon(Icons.add),
+        child: _showForm ? const Icon(Icons.close) : const Icon(Icons.add),
       ),
     );
   }
@@ -257,7 +256,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: InputDecoration(hintText: 'Name'),
+                decoration: const InputDecoration(hintText: 'Name'),
                 validator: (String? value) {
                   if (value?.trim().isEmpty ?? true) {
                     return 'Enter movie name';
@@ -269,7 +268,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
               TextFormField(
                 controller: yearController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(hintText: 'Year'),
+                decoration: const InputDecoration(hintText: 'Year'),
                 validator: (String? value) {
                   if (value?.trim().isEmpty ?? true) {
                     return 'Enter movie year';
@@ -279,7 +278,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
               ),
               TextFormField(
                 controller: languagesController,
-                decoration: InputDecoration(hintText: 'Languages'),
+                decoration: const InputDecoration(hintText: 'Languages'),
                 validator: (String? value) {
                   if (value?.trim().isEmpty ?? true) {
                     return 'Enter movie language';
@@ -290,7 +289,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
               TextFormField(
                 controller: ratingController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(hintText: 'Rating'),
+                decoration: const InputDecoration(hintText: 'Rating'),
                 validator: (String? value) {
                   if (value?.trim().isEmpty ?? true) {
                     return 'Enter movie rating';
@@ -300,7 +299,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
               ),
               TextFormField(
                 controller: imageController,
-                decoration: InputDecoration(hintText: 'Image Url'),
+                decoration: const InputDecoration(hintText: 'Image Url'),
                 validator: (String? value) {
                   if (value?.trim().isEmpty ?? true) {
                     return 'Enter movie poster url';
@@ -310,7 +309,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
               ),
               TextFormField(
                 controller: coverImageUrlController,
-                decoration: InputDecoration(hintText: 'Cover Image Url'),
+                decoration: const InputDecoration(hintText: 'Cover Image Url'),
                 validator: (String? value) {
                   if (value?.trim().isEmpty ?? true) {
                     return 'Enter movie cover url';
@@ -318,7 +317,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -332,10 +331,10 @@ class _MovieListScreenState extends State<MovieListScreen> {
                     };
         
                     _firebaseFirestore.collection('movies').doc().set(newMovie);
-                    _toggleFormVisibility(); // Close the form after saving
+                    _toggleFormVisibility();
                   }
                 },
-                child: Text('Save'),
+                child: const Text('Save'),
               ),
             ],
           ),
