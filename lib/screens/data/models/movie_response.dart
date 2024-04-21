@@ -1,5 +1,5 @@
 class MovieResponse {
-  final String id, name, languages, year, rating;
+  final String id, name, languages, year, rating, imageUrl,coverImageUrl;
 
   MovieResponse({
     required this.id,
@@ -7,6 +7,8 @@ class MovieResponse {
     required this.languages,
     required this.rating,
     required this.year,
+    required this.imageUrl,
+    required this.coverImageUrl,
   });
 
   factory MovieResponse.fromJson(String id, Map<String, dynamic> json) {
@@ -16,6 +18,8 @@ class MovieResponse {
       languages: json['languages'],
       rating: json['rating'] ?? 'Unknown',
       year: json['year'],
+      imageUrl: json['imageUrl'] ?? '',
+      coverImageUrl: json['coverImageUrl'] ?? '',
     );
   }
 }
