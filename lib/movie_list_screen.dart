@@ -101,58 +101,61 @@ class _MovieListScreenState extends State<MovieListScreen> {
                 ),
                 SizedBox(height: 20),
                 Expanded(
-                  child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 0.8,
-                    ),
-                    itemCount: movieList.length,
-                    itemBuilder: (context, index) {
-                      String imageUrl = movieList[index].imageUrl ?? '';
-                      return GestureDetector(
-                        onTap: () {
-                          // Add your onTap logic here
-                        },
-                        child: Card(
-                          elevation: 2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Expanded(
-                                child: imageUrl.isNotEmpty
-                                    ? Image.network(
-                                  imageUrl,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Image.asset(
-                                      'assets/images/no_image.jpg',
-                                      fit: BoxFit.cover,
-                                    );
-                                  },
-                                )
-                                    : Image.asset(
-                                  'assets/images/no_image.jpg',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  movieList[index].name,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 10,
-                                    overflow: TextOverflow.ellipsis,
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    child: GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 0.8,
+                      ),
+                      itemCount: movieList.length,
+                      itemBuilder: (context, index) {
+                        String imageUrl = movieList[index].imageUrl ?? '';
+                        return GestureDetector(
+                          onTap: () {
+                            // Add your onTap logic here
+                          },
+                          child: Card(
+                            elevation: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(
+                                  child: imageUrl.isNotEmpty
+                                      ? Image.network(
+                                    imageUrl,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                        'assets/images/no_image.jpg',
+                                        fit: BoxFit.cover,
+                                      );
+                                    },
+                                  )
+                                      : Image.asset(
+                                    'assets/images/no_image.jpg',
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    movieList[index].name,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 10,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
                 Container(
@@ -170,11 +173,15 @@ class _MovieListScreenState extends State<MovieListScreen> {
                         title: Text(movieList[index].name),
                         subtitle: Row(
                           children: [
-                            Text(movieList[index].languages),
+                            Text("🔉 ${movieList[index].languages}"),
                             const SizedBox(
                               width: 10,
                             ),
-                            Text("|  ${movieList[index].year}"),
+                            Text("- 🕒 ${movieList[index].year}"),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text("- ⭐ ${movieList[index].rating}"),
                           ],
                         ),
                         leading: imageUrl.isNotEmpty
